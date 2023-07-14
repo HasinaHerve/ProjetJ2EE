@@ -114,16 +114,31 @@ public class Servlet extends HttpServlet{
 	            
 		}
 		if(action.equals("ajouterClient")) {
-			Client c=new Client();
-			c.setCin(request.getParameter("cin"));
-			c.setNomCli(request.getParameter("nomCli"));
-			c.setpCli(request.getParameter("pCli"));
-			c.setAdCli(request.getParameter("adCli"));
-			c.setTelCli(request.getParameter("telCli"));
-			vente.addClient(c);
-			List<Produit> produit=vente.getAllProduit();
-			request.setAttribute("produit", produit);
-			request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
+			List<Client> client=vente.getClientParCin(request.getParameter("cin"));
+			if(client.size()==0) {
+				Client c=new Client();
+				c.setCin(request.getParameter("cin"));
+				c.setNomCli(request.getParameter("nomCli"));
+				c.setpCli(request.getParameter("pCli"));
+				c.setAdCli(request.getParameter("adCli"));
+				c.setTelCli(request.getParameter("telCli"));
+				vente.addClient(c);
+				request.setAttribute("ajoutClientSucces", "Enregistrement effectué");
+				List<Produit> produit=vente.getAllProduit();
+				request.setAttribute("produit", produit);
+				request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
+				request.setAttribute("ajoutClientErreur", null);
+				request.setAttribute("ajoutClientSucces", null);
+			}
+			else {
+				request.setAttribute("ajoutClientErreur", "Vous vous êtes déjà enregistrer auparavant, vous pouvez commandez avec votre cin");
+				List<Produit> produit=vente.getAllProduit();
+				request.setAttribute("produit", produit);
+				request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
+				request.setAttribute("ajoutClientErreur", null);
+				request.setAttribute("ajoutClientSucces", null);
+			}
+			
 		}
 				
 		

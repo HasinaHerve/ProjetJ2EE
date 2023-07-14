@@ -26,6 +26,13 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Datatables/dt/css/dataTables.bootstrap4.min.css">
+  <script src="ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="Datatables/dt/js/jquery.dataTables.min.js"></script>
+  <script src="Datatables/dt/js/dataTables.bootstrap4.min.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
@@ -142,6 +149,18 @@
             <form action="servlet" method="post">
             	</br>
             	</br>
+            	<c:if test="${requestScope.ajoutClientErreur!=null}">  
+					<div class="alert alert-warning alert-dismissible fade show" style="margin-left:17px">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							${requestScope.ajoutClientErreur}
+						</div> 
+				</c:if>
+				<c:if test="${requestScope.ajoutClientSucces!=null}">  
+					<div class="alert alert-success alert-dismissible fade show" style="margin-left:17px">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							${requestScope.ajoutClientSucces}
+						</div> 
+				</c:if>
               <div class="row gy-4" style="padding:50px">
                 <div class="col-lg-4 col-md-6">
                   <input type="text" name="cin" class="form-control" id="name" placeholder="Entrez votre cin" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="12" required>

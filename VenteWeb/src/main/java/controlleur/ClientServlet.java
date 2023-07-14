@@ -41,17 +41,27 @@ public class ClientServlet extends HttpServlet {
 		List<Produit> produit=vente.getAllProduit();
 		for (int i = 0; i < produit.size(); i++) {
             if(request.getParameter(String.valueOf(produit.get(i).getIdProduit()))!=null) {
-            	Produit p=new Produit();
-            	p.setIdProduit(produit.get(i).getIdProduit());
-            	p.setNomProduit(produit.get(i).getNomProduit());
-            	p.setDescription(produit.get(i).getDescription());
-            	p.setPhoto(produit.get(i).getPhoto());
-            	p.setTaille(produit.get(i).getTaille());
-            	p.setPrix(produit.get(i).getPrix());   
-            	p.setCin(request.getParameter("validCin"));
-            	p.setStatus("Réservée");
-            	vente.updateProduit(p);
-            	doGet(request,response);
+            	List<Client> client=vente.getClientParCin(request.getParameter("validCin"));
+    			if(client.size()==0) {
+    				request.setAttribute("commandeError", "Votre cin n'a pas encore été enregistrer");
+    				doGet(request,response);
+    				request.setAttribute("commandeError", null);
+    			}
+    			else {
+    				Produit p=new Produit();
+                	p.setIdProduit(produit.get(i).getIdProduit());
+                	p.setNomProduit(produit.get(i).getNomProduit());
+                	p.setDescription(produit.get(i).getDescription());
+                	p.setPhoto(produit.get(i).getPhoto());
+                	p.setTaille(produit.get(i).getTaille());
+                	p.setPrix(produit.get(i).getPrix());   
+                	p.setCin(request.getParameter("validCin"));
+                	p.setStatus("Réservée");
+                	vente.updateProduit(p);
+                	request.setAttribute("commandeSucces", "Commande effectuée");
+                	doGet(request,response);
+    			}
+            	
             }
         }
 		

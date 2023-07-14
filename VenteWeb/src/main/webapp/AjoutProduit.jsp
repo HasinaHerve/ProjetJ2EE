@@ -113,7 +113,7 @@ function myFunction() {
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav" style="padding-left:70px;font-size:1.5vw">
 				<li class="nav-item">
-                    <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Voir toutes les listes" href="Liste.jsp" ><h5>Liste des produits</h5></a>
+                    <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Voir toutes les listes" href="AfficheListe" ><h5>Liste des produits</h5></a>
 				</li>
 				<li class="nav-item">
                     <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Afficher le formulaire d'ajout d'un produit"  href="#"><h5 style="color:white">Produits</h5></a>

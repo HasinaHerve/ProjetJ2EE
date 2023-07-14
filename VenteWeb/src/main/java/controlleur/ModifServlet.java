@@ -71,11 +71,12 @@ public class ModifServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Produit p=new Produit();
+		//prix=Double.parseDouble(request.getParameter("prix"));
 		p.setIdProduit(idProduit);
 		p.setNomProduit(request.getParameter("nomProduit"));
 		p.setDescription(request.getParameter("description"));
 		p.setTaille(request.getParameter("taille"));
-		p.setPrix(Double.parseDouble(request.getParameter("prix")));
+		p.setPrix(prix);
 		p.setStatus("Disponible");
 		
 		vente.updateProduit(p);
