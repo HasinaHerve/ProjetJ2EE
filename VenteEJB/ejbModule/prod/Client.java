@@ -14,17 +14,26 @@ public class Client implements Serializable {
 	private String pCli;
 	private String adCli;
 	private String telCli;
-	public Client() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Client(String cin, String nomCli, String pCli, String adCli, String telCli) {
+	private String mdpClient;
+	
+	public Client(String cin, String nomCli, String pCli, String adCli, String telCli, String mdpClient) {
 		super();
 		this.cin = cin;
 		this.nomCli = nomCli;
 		this.pCli = pCli;
 		this.adCli = adCli;
 		this.telCli = telCli;
+		this.mdpClient = mdpClient;
+	}
+	public Client() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getMdpClient() {
+		return mdpClient;
+	}
+	public void setMdpClient(String mdpClient) {
+		this.mdpClient = mdpClient;
 	}
 	public String getCin() {
 		return cin;

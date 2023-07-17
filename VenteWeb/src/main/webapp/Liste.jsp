@@ -13,6 +13,9 @@
 	<script src="maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="Datatables/dt/js/jquery.dataTables.min.js"></script>
     <script src="Datatables/dt/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    
 	
 </head>
 <style type="text/css">
@@ -128,11 +131,11 @@ function myFunction() {
             </ul>
 		</div>
     </nav> 
-    <form action="mservlet" method="get">
+    <form action="mservlet" method="post">
 	   	<div id="b2" class="containerTab" style="padding-top:80px">
 	         <div class="centre shadow p-4 mb-4 bg-white" id="" style="background-color:white;border-radius:5px;padding-left:50px;padding-right:0px;padding-bottom:5px;">
 	              <div class="table-responsive">
-		              <table class="table table-hover" id="listeProd">
+		              <table class="table table-hover" id="myTable">
 		                    <thead>
 			                 	<tr>
 			                     	<th>IdProduit</th>
@@ -143,6 +146,7 @@ function myFunction() {
 			                     	<th>Prix</th>
 			                     	<th>Status</th>  
 			                     	<th>CinClient</th> 
+			                     	<th>Facture</th>
 			                     	<th>Modifier</th>  
 			                     	<th>Supprimer</th>     
 			                     </tr>
@@ -154,10 +158,15 @@ function myFunction() {
 		                     	  		<td>${p.nomProduit}</td>
 		                     	  		<td>${p.description}</td>
 		                     	  		<td>${p.taille}</td>
-		                     	  		<td>${p.photo}</td>
+		                     	  		<td><a href="${p.photo}" class="glightbox"><img src="${p.photo}" class="menu-img" alt="" style="height:40px"/> </a></td>
 		                     	  		<td>${p.prix}</td>
 		                     	  		<td>${p.status}</td>
 		                     	  		<td>${p.cin}</td>
+		                     	  		<td>
+		                     	  			<c:if test="${p.cin!=null}">  
+											   	<button class="btn btn-info" value="modifier" style="font-size:14px" name="imp${p.idProduit}" value="${p.idProduit}">Imprimer</button>
+											</c:if>
+		                     	  		</td>
 		                     	  		<td><button class="btn btn-info" value="modifier" style="font-size:14px" name="${p.idProduit}" value="${p.idProduit}">Modifer</button></td>
 		                     	  		<td><button class="btn btn-danger" value="supprimer" style="font-size:14px" name="s${p.idProduit}" value="${p.idProduit}">Supprimer</button></td>
 		                     	  	</tr>
@@ -242,7 +251,7 @@ function myFunction() {
 	                        <div class="col-6">
 	                            <button type="submit" class="btn btn-secondary" data-dismiss="modal">Non</button>
 	                        </div>
-	                        <form method="get" action="mservlet">
+	                        <form method="post" action="mservlet">
 		                        <div class="col-7">
 		                            <button type="submit" class="btn btn-danger" name="validSupp${requestScope.supprimer}">Oui</button>
 		                        </div>
@@ -262,9 +271,9 @@ function myFunction() {
 		<p>copyright Vente en ligne | 2023 All Right Reserved</p>
 	</div>
 <script>
-    $('#listeProd ').DataTable({
-
-    }); 
+	$(document).ready(function() {
+	    $('#myTable').DataTable();
+	});
 </script>
 </body>
 </html>

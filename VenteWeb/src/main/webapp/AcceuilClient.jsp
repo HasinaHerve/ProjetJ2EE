@@ -2,7 +2,61 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
+<style type="text/css">
+.esp1 {
+  background-color: #999999;
+  font-size: 110%;
+  width: 100%;
+  padding-bottom: 10px;
 
+}
+
+
+.esp1:hover,
+.esp1:focus {
+  background-color: #006622;
+}
+.dec:hover,
+.dec:focus{
+    width:20%;
+}
+h5,
+.modif{
+	color: #999999;	
+}
+h5:hover,
+h5:focus{
+    color: white;
+}
+.nav-link{
+	color: white;	
+}
+.nav-link:hover,
+.nav-link:focus,
+.modif:hover,
+.modif:focus{
+    color: #1f1f24;
+}
+.form-control{
+    font-size:14px;
+}
+.btn{
+    font-size:14px;
+}
+
+.user{
+    position:fixed;right:5px;top:1px;
+}
+.user1{
+    position:fixed;left:5px;top:1px;
+}
+@media screen and (max-width: 600px) {
+  .user{
+    position:fixed;right:70px;top:1px;
+  }
+ 
+}
+</style>
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -53,14 +107,21 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#menu">Menu</a></li>
+          <li><a href="#hero">Acceuil</a></li>
+          <li><a href="#menu">Nos marchandises</a></li>
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-book-a-table" href="#book-a-table">Vos informations</a>
+      <a class="btn-book-a-table" href="#book-a-table" style="background-color:#1f1f24">Créer un compte</a>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <div class="dropdown dropbottom user" id="user">
+            <a class="nav-link" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="color:#999999" href="#"><h5><img src="image/utB.png" id="us" alt=""><%=session.getAttribute("id")%></h5></a>
+            <div class="dropdown-menu shadow p-4 mb-4 bg-white" style="text-align:center">
+                <a class="nav-link" data-toggle="modal" data-target="#Modal1" href="#"><p class="modif" style="font-size:14px;">Modification</p></a>
+                <a data-toggle="tooltip" data-placement="bottom" title="Se déconnecter" href="LoginClient.jsp"><img class="dec" src="image/dec1.png" alt=""></a>
+            </div>
+        </div>
       
 
     </div>
@@ -72,7 +133,6 @@
       <div class="row justify-content-between gy-5">
         <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
           <h2 data-aos="fade-up">Bienvenue sur<br>Vente de fripperie en ligne</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Vous pouvez commmander</p>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
           <img src="image/Logo.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
@@ -141,65 +201,156 @@
 
         <div class="section-header">
           <h2>Informations</h2>
-          <p>Veuillez <span>les enregistrées</span> avant de faire une commande</p>
+          <p>Création d'un compte utilisateur</p>
         </div>
-
-        <div class="row g-0">
-          <div class="col-lg-8 d-flex align-items-center reservation-form-bg" style="padding:50px">
-            <form action="servlet" method="post">
-            	</br>
-            	</br>
-            	<c:if test="${requestScope.ajoutClientErreur!=null}">  
-					<div class="alert alert-warning alert-dismissible fade show" style="margin-left:17px">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-							${requestScope.ajoutClientErreur}
-						</div> 
-				</c:if>
-				<c:if test="${requestScope.ajoutClientSucces!=null}">  
-					<div class="alert alert-success alert-dismissible fade show" style="margin-left:17px">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-							${requestScope.ajoutClientSucces}
-						</div> 
-				</c:if>
-              <div class="row gy-4" style="padding:50px">
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" name="cin" class="form-control" id="name" placeholder="Entrez votre cin" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="12" required>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="nomCli" placeholder="Entrez votre nom" required>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="pCli" placeholder="Entrer votre prénom">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="adCli" placeholder="Entrer votre adresse" required>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="telCli" placeholder="Entrer votre numéro téléphone" required>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <button type="reset" class="btn btn-danger" id="connecter">Annuler <img src="image/cancel.png" alt=""></button>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <button class="btn btn-success" name="action" value="ajouterClient" >Enregistrer <img src="image/yes.png" alt=""></button>
-                </div>
-               </div>
-               </br>
-            </br>
-           </form>
-          </div>
-          <!-- End Reservation Form -->
-	
-        </div>
-        
-
-      </div>
+      <div class="container-fluid" style="width:60%">
+        <div class="centre shadow p-4 mb-4 bg-white" id="etape1" style="background-color:white;border-radius:5px;padding-left:50px;padding-right:0px;padding-bottom:5px;">
+            <c:if test="${requestScope.ajoutClientErreur!=null}">  
+				<div class="alert alert-warning alert-dismissible fade show" style="margin-left:17px">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				${requestScope.ajoutClientErreur}
+				</div> 
+			</c:if>
+			<c:if test="${requestScope.ajoutClientSucces!=null}">  
+				<div class="alert alert-success alert-dismissible fade show" style="margin-left:17px">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				${requestScope.ajoutClientSucces}
+				</div> 
+			</c:if>
+            <form class="form-horizontal" name="form" method="POST" action="servlet" enctype="multipart/form-data">
+            	<div class="form-group">                     
+					<div class="row" >
+						<div class="col-8" style="">
+                            <label class="control-label" style="">Cin:</label>
+							<input type="text" name="cin" class="form-control" id="name" placeholder="Entrez votre cin" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="12" required>				    
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>
+                        </div>
+					</div></br>
+                    <div class="row" >
+						<div class="col-8" style="">
+                            <label class="control-label" style="">Nom:</label>
+							<input type="text" class="form-control" name="nomCli" placeholder="Entrez votre nom" required>
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>				    
+						</div>
+					</div></br>   
+					<div class="row" >
+						<div class="col-8" style="">
+                            <label class="control-label" style="">Prénoms:</label>
+							<input type="text" class="form-control" name="pCli" placeholder="Entrer votre prénom">
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>				    
+						</div>
+					</div></br> 
+					<div class="row" >
+						<div class="col-8" style="">
+                            <label class="control-label" style="">Adresse:</label>
+                            <input type="text" class="form-control" name="adCli" placeholder="Entrer votre adresse" required>
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>				    
+						</div>
+					</div></br>  
+					<div class="row" >
+						<div class="col-8" style="">
+                            <label class="control-label" style="">Téléphone:</label>
+                            <input type="text" class="form-control" name="telCli" placeholder="Entrer votre numéro téléphone" required>
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>				    
+						</div>
+					</div></br> 
+					<div class="row" >
+						<div class="col-8" style="">
+                            <label class="control-label" style="">Mot de passe:</label>
+                            <input type="password" class="form-control" placeholder="Entrer votre mot de passe" name="mdp" required>
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>				    
+						</div>
+					</div></br>
+					<div class="row" >
+						<div class="col-8" style="">
+                            <input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="cmdp" required>
+                            <span class="container text-left">
+					    		<label class="control-label text-danger"></label> 
+					    	</span>				    
+						</div>
+					</div></br>
+					<div class="row" >
+	                	<div class="col-3" style="margin-right:0px">
+	                         <button type="reset" class="btn btn-danger">Annuler <img src="image/cancel.png" alt=""></button>
+	                    </div>
+	                    <div class="col-9" style="padding-left:0px">
+	                         <button class="btn btn-success" name="action" value="ajouterClient" >Enregistrer <img src="image/yes.png" alt=""></button>
+	                    </div> 
+					</div></br>          
+				</div>
+				
+            </form>	 
+    	</div>   		
+    </div>
     </section>
+    
 
   </main><!-- End #main -->
-
+<div class="modal fade" id="Modal1">
+        <div class="modal-dialog">
+            <form class="form-horizontal" name="form" method="POST" action="cservlet">
+            	<input type="hidden" class="form-control" name="id" value="<%=session.getAttribute("id")%>">
+                <div class="modal-content">
+                
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="color: #1f1f24"><img class="img-fluid" src="image/modP.png" >Modification du mot de passe</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body" style="">
+                        <div class="container text-center" style="border: 1px solid #006622;border-radius: 5px;"></br>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="control-label col-4" style="">Ancien mot de passe:</label>
+                                        <div class="col-8" style="column-width: 400px;">
+                                            <input type="password" maxlength="12" class="form-control" placeholder="Entrez votre ancien mot de passe" name="amdp" value="" required>
+                                            <span class="container text-left">
+                                                <label class="control-label text-danger"></label> 
+                                            </span>					    
+                                        </div>
+                                    </div></br>
+                                    <div class="row">
+                                        <label class="control-label col-4" for="pwd" onclick="verif()" style="">Nouveau mot de passe:</label>
+                                        <div class="col-8" style="column-width: 400px;">          
+                                            <input maxlength="12" type="password" class="form-control" id="nmdp" placeholder="Entrez votre nouveau mot de passe" name="nmdp" value="" required>
+                                            <span class="container text-left">
+                                                <label class="control-label text-danger"></label> 
+                                            </span>	 
+                                        </div>
+                                    </div>                                 
+                                </div>     
+                        </div>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <div class="col-6">
+                                <button type="reset" class="btn btn-danger" id="connecter" name="annuler" value="annuler">Annuler <img class="img-fluid" src="image/cancel.png"></button>
+                            </div>
+                            <div class="col-7">
+                                <button type="submit" class="btn btn-success" name="action" value="modifmdp">Enregistrer<img class="img-fluid" src="image/save.png"></button>
+                            </div>	        
+                        </div>
+                    </div>
+                </div>
+            </form>		    
+        </div>
+    </div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
 

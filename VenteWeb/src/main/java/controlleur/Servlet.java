@@ -114,30 +114,43 @@ public class Servlet extends HttpServlet{
 	            
 		}
 		if(action.equals("ajouterClient")) {
-			List<Client> client=vente.getClientParCin(request.getParameter("cin"));
-			if(client.size()==0) {
-				Client c=new Client();
-				c.setCin(request.getParameter("cin"));
-				c.setNomCli(request.getParameter("nomCli"));
-				c.setpCli(request.getParameter("pCli"));
-				c.setAdCli(request.getParameter("adCli"));
-				c.setTelCli(request.getParameter("telCli"));
-				vente.addClient(c);
-				request.setAttribute("ajoutClientSucces", "Enregistrement effectué");
-				List<Produit> produit=vente.getAllProduit();
-				request.setAttribute("produit", produit);
-				request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
-				request.setAttribute("ajoutClientErreur", null);
-				request.setAttribute("ajoutClientSucces", null);
+			if(request.getParameter("mdp").equals(request.getParameter("cmdp"))) {
+				List<Client> client=vente.getClientParCin(request.getParameter("cin"));
+				if(client.size()==0) {
+					Client c=new Client();
+					c.setCin(request.getParameter("cin"));
+					c.setNomCli(request.getParameter("nomCli"));
+					c.setpCli(request.getParameter("pCli"));
+					c.setAdCli(request.getParameter("adCli"));
+					c.setTelCli(request.getParameter("telCli"));
+					c.setMdpClient(request.getParameter("mdp"));
+					vente.addClient(c);
+					request.setAttribute("ajoutClientSucces", "Votre compte a été créer");
+					List<Produit> produit=vente.getAllProduit();
+					request.setAttribute("produit", produit);
+					request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
+					request.setAttribute("ajoutClientErreur", null);
+					request.setAttribute("ajoutClientSucces", null);
+				}
+				else {
+					request.setAttribute("ajoutClientErreur", "Vous avez déjà un compte");
+					List<Produit> produit=vente.getAllProduit();
+					request.setAttribute("produit", produit);
+					request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
+					request.setAttribute("ajoutClientErreur", null);
+					request.setAttribute("ajoutClientSucces", null);
+				}
 			}
 			else {
-				request.setAttribute("ajoutClientErreur", "Vous vous êtes déjà enregistrer auparavant, vous pouvez commandez avec votre cin");
+				request.setAttribute("ajoutClientErreur", "Confirmation du mot de passe incorrecte");
 				List<Produit> produit=vente.getAllProduit();
 				request.setAttribute("produit", produit);
 				request.getRequestDispatcher("AcceuilClient.jsp").forward(request, response);
 				request.setAttribute("ajoutClientErreur", null);
 				request.setAttribute("ajoutClientSucces", null);
 			}
+				
+			
 			
 		}
 				

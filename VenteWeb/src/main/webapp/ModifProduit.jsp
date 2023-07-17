@@ -131,13 +131,12 @@ function myFunction() {
     <div class="container-fluid" style="padding-top:80px;">
         <div class="centre shadow p-4 mb-4 bg-white" id="etape1" style="background-color:white;border-radius:5px;padding-left:50px;padding-right:0px;padding-bottom:5px;">
             <p style="border-bottom:2px solid #1f1f24;width:19.6%;font-size:18px;color:#1f1f24">Modifier un produit</p></br>
-            <form class="form-horizontal" name="form" method="POST" action="mservlet" enctype="multipart/form-data">
+            <form class="form-horizontal" name="form" method="GET" action="mservlet" enctype="multipart/form-data">
             	<div class="form-group">                     
 					<div class="row" >
 						<div class="col-8" style="">
                             <label class="control-label" style="">Nom:</label>
-							<input id="cin" type="text" class="form-control" placeholder="Nom du produit" name="nomProduit"  value="${requestScope.nomProduit}" required>
-							<input id="cin" type="text" class="form-control" placeholder="Nom du produit" name="idProduit"  value="${requestScope.idProduit}" style="">				    
+							<input id="cin" type="text" class="form-control" placeholder="Nom du produit" name="nomProduit"  value="<%=session.getAttribute("nomProduit")%>" required>
                             <span class="container text-left">
 					    		<label class="control-label text-danger"></label> 
 					    	</span>
@@ -146,7 +145,7 @@ function myFunction() {
                     <div class="row" >
 						<div class="col-8" style="">
                             <label class="control-label" style="">Description:</label>
-							<input type="text" class="form-control" placeholder="Description du produit" name="description" value="${requestScope.description}" required>
+							<input type="text" class="form-control" placeholder="Description du produit" name="description" value="<%=session.getAttribute("description")%>" required>
                             <span class="container text-left">
 					    		<label class="control-label text-danger"></label> 
 					    	</span>				    
@@ -155,25 +154,16 @@ function myFunction() {
 					<div class="row" >
 						<div class="col-8" style="">
                             <label class="control-label" style="">Taille</label>
-							<input type="text" class="form-control" placeholder="Taille du produit" name="taille" value="${requestScope.taille}" required>
+							<input type="text" class="form-control" placeholder="Taille du produit" name="taille" value="<%=session.getAttribute("taille")%>" required>
                             <span class="container text-left">
 					    		<label class="control-label text-danger"></label> 
 					    	</span>				    
 						</div>
-					</div></br>
-					<div class="row" >
-						<div class="col-8" style="">
-                            <label class="control-label" style="">Photo</label>
-							<div class="custom-file">
-							    <input type="file" class="custom-file-input" id="customFile" name="photo" value="${requestScope.photo}" required>
-							    <label class="custom-file-label" for="customFile">Photo du produit</label>
-						  	</div>				    
-						</div>
-					</div></br>  
+					</div></br> 
 					<div class="row" >
 						<div class="col-8" style="">
                             <label class="control-label" style="">Prix:</label>
-							<input onkeypress="return event.charCode>=48 && event.charCode<=57" type="text" class="form-control" placeholder="Prix du produit en ariary" name="prix" value="${requestScope.prix}" required>
+							<input onkeypress="return event.charCode>=48 && event.charCode<=57" type="text" class="form-control" placeholder="Prix du produit en ariary" name="prix" value="<%=session.getAttribute("prix")%>" required>
                             <span class="container text-left">
 					    		<label class="control-label text-danger"></label> 
 					    	</span>				    
@@ -185,7 +175,7 @@ function myFunction() {
                          <button type="reset" class="btn btn-danger" id="connecter">Annuler <img src="image/cancel.png" alt=""></button>
                     </div></br>
                     <div class="col-9" style="padding-left:0px">
-                         <button class="btn btn-success" name="action" value="ajouter" >Enregistrer <img src="image/yes.png" alt=""></button>
+                         <button class="btn btn-success" name="action" value="modifier" >Enregistrer <img src="image/yes.png" alt=""></button>
                     </div> 
 				</div></br>
             </form>	 

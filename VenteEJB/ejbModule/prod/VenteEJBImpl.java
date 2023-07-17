@@ -34,6 +34,10 @@ public class VenteEJBImpl implements IVenteLocal {
 		Produit p=em.find(Produit.class, idProduit);
 		return p;
 	}
+	public int getProduitReservé() {
+		Query req=em.createQuery("select count(idProduit) as notif from Produit p where p.status="+"Reservée"+"");
+		return req.getFirstResult();
+	}
 
 	@Override
 	public void removeProduit(Long idProduit) {
@@ -53,6 +57,17 @@ public class VenteEJBImpl implements IVenteLocal {
 		p1.setTaille(p.getTaille());
 		p1.setCin(p.getCin());
 		em.persist(p1);
+	}
+	@Override
+	public void updateClient(Client c) {
+		Client c1=em.find(Client.class, c.getCin());
+		c1.setNomCli(c.getNomCli());
+		c1.setpCli(c.getpCli());
+		c1.setAdCli(c.getAdCli());
+		c1.setTelCli(c.getTelCli());
+		c1.setMdpClient(c.getMdpClient());
+		c1.setCin(c.getCin());
+		em.persist(c1);
 	}
 	
 	@Override

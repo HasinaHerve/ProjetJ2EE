@@ -70,23 +70,6 @@ h5:focus{
   }
  
 }
-.notification {
-  color: white;
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  border-radius: 2px;
-}
-
-.notification .badge {
-  position: absolute;
-  top: -2px;
-  right: -4px;
-  padding: 5px 10px;
-  border-radius: 50%;
-  background-color: #e60000;
-  color: white;
-}
 </style>
 <script>
 function myFunction() {
@@ -118,12 +101,6 @@ function myFunction() {
 				<li class="nav-item">
                     <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Afficher le formulaire d'ajout d'un produit"  href="#"><h5 style="color:white">Produits</h5></a>
 				</li>
-				<li class="notification">
-                    <a onmouseover="document.getElementById('notif').src='image/notif1.png'" onmouseover="document.getElementById('notif').src='image/notif1.png'" onmouseout="document.getElementById('notif').src='image/notif0.png'" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Voir toutes les notifications" href="Notification.jsp"><h5><img src="image/notif0.png" id="notif" alt=""><span class="badge">
-                    
-                    </span></h5></a>
-                    
-                </li>
             </ul>
 		</div>
     </nav>  

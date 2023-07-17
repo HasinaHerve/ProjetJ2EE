@@ -10,6 +10,7 @@ public interface IVenteLocal {
 	public void addProduit(Produit p);
 	public List<Produit> getAllProduit();
 	public List<Produit> getProduitParNom(String nom);
+	public int getProduitReservé();
 	public Produit getProduit(Long idProduit);
 	public void removeProduit(Long idProduit);
 	public void updateProduit(Produit p);
@@ -21,4 +22,5 @@ public interface IVenteLocal {
 	public List<Client> getAllClient();
 	public List<Client> getClientParCin(String cin);
 	public Client getClient(String cin );
+	public void updateClient(Client c);
 }
