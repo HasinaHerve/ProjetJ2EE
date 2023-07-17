@@ -1,6 +1,14 @@
 package controlleur;
 
 import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -93,16 +101,41 @@ public class ModifServlet extends HttpServlet {
     			for (int j = 0; j < c.size(); j++) {
     				nom=c.get(j).getNomCli();
     			}
-            	// Set the response content type to PDF
-                response.setContentType("application/pdf");
-
-                // Set the header for PDF file download
-                response.setHeader("Content-Disposition", "attachment; filename=\"invoice.pdf\"");
-
-                // Generate the invoice content and write it to the response output stream
-                try (OutputStream out = response.getOutputStream()) {
-                    imprimer(out,produit.get(i).getCin(),nom,produit.get(i).getPrix());
-                }
+    			response.setContentType("application/pdf");
+    			  
+    	        response.setHeader(
+    	            "Content-disposition",
+    	            "inline; filename='Facture.pdf'");
+    	  
+    	        try {
+    	  
+    	            Document document = new Document();
+    	  
+    	            PdfWriter.getInstance(
+    	                document, response.getOutputStream());
+    	  
+    	            document.open();
+    	            Font font1 = new Font(Font.FontFamily.TIMES_ROMAN, 30,Font.ITALIC | Font.BOLD);
+    	            Paragraph titre = new Paragraph("Vente en ligne\n",font1); 
+    	            titre.setAlignment(Element.ALIGN_CENTER);
+    	            Font font2 = new Font(Font.FontFamily.TIMES_ROMAN, 25,Font.ITALIC | Font.BOLD);
+    	            Font font3 = new Font(Font.FontFamily.TIMES_ROMAN, 25,Font.ITALIC);
+    	            Paragraph cin = new Paragraph("Cin:",font2);
+    	            Paragraph cinValue = new Paragraph(produit.get(i).getCin(),font3);
+    	            Paragraph n = new Paragraph("Nom:",font2);
+    	            Paragraph nValue = new Paragraph(produit.get(i).getNomProduit(),font3);
+    	            Paragraph prix = new Paragraph("Prix:",font2);
+    	            Paragraph prixValue = new Paragraph(String.valueOf(produit.get(i).getPrix()),font3);
+    	            
+    	            document.add(titre);
+    	            document.add(new Paragraph(cin+": "+cinValue+"\n"));
+    	            document.add(new Paragraph(n+": "+nValue+"\n"));
+    	            document.add(new Paragraph(prix+": "+prixValue+"\n"));
+    	            document.close();
+    	        }
+    	        catch (DocumentException de) {
+    	            throw new IOException(de.getMessage());
+    	        }
             	List<Produit> produit1=vente.getAllProduit();
             	request.setAttribute("produit", produit1);
             	request.getRequestDispatcher("Liste.jsp").forward(request, response);
@@ -111,20 +144,6 @@ public class ModifServlet extends HttpServlet {
 		
 		
 	}
-	private void imprimer(OutputStream out, String cin, String nom, Double p) throws IOException {
-        // Use a PDF generation library (e.g., iText) to create the invoice PDF
-        // Customize the invoice layout and content as per your requirements
-        
-        // Example: Create a simple invoice using plain text
-        StringBuilder invoiceContent = new StringBuilder();
-        invoiceContent.append("Facture\n\n");
-        invoiceContent.append("Date: ").append(new Date()).append("\n");
-        invoiceContent.append("Client: ").append(nom).append(" ").append(cin);
-        invoiceContent.append("prix\t\t").append(p).append("\n");
-
-        // Write the invoice content to the output stream
-        out.write(invoiceContent.toString().getBytes());
-    }
 	
 
 }

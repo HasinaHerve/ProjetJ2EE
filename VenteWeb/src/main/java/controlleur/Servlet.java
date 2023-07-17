@@ -50,7 +50,6 @@ public class Servlet extends HttpServlet{
 			Part file=request.getPart("photo");
 			String imageFileName=getSubmittedFileName(file);
 			String uploadPath="D:\\Bossy\\J2EE\\VenteWeb\\src\\main\\webapp\\image\\"+imageFileName;
-		
 			try
 			{
 				
